@@ -1,5 +1,4 @@
-# API de carga lectiva
-
+# carga-lectiva-springboot
 En GitHub crea el secreto de Codespaces REST_API_KEY y permite su uso en este repositorio. Usa el mismo valor en las propiedades de Apps Script y en Postman. Abre el Codespace con Java 21 y ejecuta desde la raíz:
 
 ```sh
