@@ -1,7 +1,6 @@
 package com.equipo.cargalectiva;
 import java.util.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.*;
 import tools.jackson.databind.ObjectMapper;
@@ -11,20 +10,15 @@ import tools.jackson.databind.ObjectMapper;
 public class RestControllerCarga {
  private final Map<String,Object> parametros;
  private final Map<String,Object> catalogos;
- private final String apiKey;
- public RestControllerCarga(@Value("${rest.api-key}") String key) throws Exception {
-  if(key.isBlank()) throw new IllegalArgumentException("REST_API_KEY es obligatoria");
-  apiKey=key;
+ public RestControllerCarga() throws Exception {
   ObjectMapper mapper=new ObjectMapper();
   try(var in=new ClassPathResource("parametros.json").getInputStream()) { parametros=new LinkedHashMap<>(mapper.readValue(in,Map.class)); }
   try(var in=new ClassPathResource("catalogos.json").getInputStream()) { catalogos=mapper.readValue(in,Map.class); }
  }
- private void autorizar(String key) { if(!apiKey.equals(key)) throw new ApiError(401,"Clave de API incorrecta"); }
- @GetMapping("/parametros") public synchronized Map<String,Object> parametros(@RequestHeader(value="X-API-Key",defaultValue="") String key) {autorizar(key);return new LinkedHashMap<>(parametros);}
- @GetMapping("/catalogos") public Map<String,Object> catalogos(@RequestHeader(value="X-API-Key",defaultValue="") String key) {autorizar(key);return catalogos;}
+ @GetMapping("/parametros") public synchronized Map<String,Object> parametros() {return new LinkedHashMap<>(parametros);}
+ @GetMapping("/catalogos") public Map<String,Object> catalogos() {return catalogos;}
  public record Cambio(String clave,Object valor) {}
- @PostMapping("/parametros/actualizar") public synchronized Map<String,Object> actualizar(@RequestHeader(value="X-API-Key",defaultValue="") String key,@RequestBody Cambio cambio) {
-  autorizar(key);
+ @PostMapping("/parametros/actualizar") public synchronized Map<String,Object> actualizar(@RequestBody Cambio cambio) {
   if(cambio.clave()==null || !parametros.containsKey(cambio.clave())) throw new ApiError(400,"Parámetro desconocido");
   Object anterior=parametros.get(cambio.clave()), valor=cambio.valor();
   if(anterior instanceof Number) {
