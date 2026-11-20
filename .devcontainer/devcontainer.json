@@ -1,0 +1,6 @@
+{
+  "name": "Carga lectiva",
+  "image": "mcr.microsoft.com/devcontainers/java:1-21-bookworm",
+  "forwardPorts": [8080],
+  "portsAttributes": { "8080": { "label": "Spring Boot" } }
+}

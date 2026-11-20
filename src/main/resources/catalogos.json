@@ -1,0 +1,41 @@
+{
+  "carreras": [
+    {
+      "id": "CAR-001",
+      "descripcion": "Ingeniería de Software",
+      "activo": true
+    },
+    {
+      "id": "CAR-002",
+      "descripcion": "Ingeniería Industrial",
+      "activo": true
+    },
+    {
+      "id": "CAR-003",
+      "descripcion": "Administración de Empresas",
+      "activo": true
+    }
+  ],
+  "departamentos": [
+    {
+      "id": "DEP-001",
+      "descripcion": "Ciencias Básicas",
+      "activo": true
+    },
+    {
+      "id": "DEP-002",
+      "descripcion": "Ingeniería y Computación",
+      "activo": true
+    },
+    {
+      "id": "DEP-003",
+      "descripcion": "Humanidades",
+      "activo": true
+    },
+    {
+      "id": "DEP-004",
+      "descripcion": "Ciencias Empresariales",
+      "activo": true
+    }
+  ]
+}
